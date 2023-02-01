@@ -3,17 +3,19 @@
 // Externals.
 import { ReactNode } from 'react';
 import { usePathname } from 'next/navigation';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, Variants } from 'framer-motion';
 
 // Animations.
-const varients = {
+const variants: Variants = {
   initial: {
     opacity: 0,
   },
   animate: {
     opacity: 1,
   },
-  exit: {},
+  exit: {
+    opacity: 0,
+  },
 };
 
 export default function PageTransition({ children }: { children: ReactNode }) {
@@ -25,8 +27,7 @@ export default function PageTransition({ children }: { children: ReactNode }) {
         initial='initial'
         animate='animate'
         exit='exit'
-        variants={varients}
-        transition={{ delay: 0.25 }}>
+        variants={variants}>
         {children}
       </motion.div>
     </AnimatePresence>
