@@ -1,10 +1,10 @@
 /****************************************
- * - Home Page -
+ * - Blog Page -
  ***************************************/
-export default function Home() {
+export default function Blog() {
   return (
     <main>
-      <div className='text-blue-400 text-2xl'>Home</div>
+      <div className='text-blue-400 text-2xl'>Blog</div>
     </main>
   );
 }

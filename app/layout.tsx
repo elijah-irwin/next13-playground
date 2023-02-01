@@ -1,18 +1,27 @@
-import './globals.css'
+// Components.
+import PageTransition from '@/components/PageTransition';
+import TopNav from '@/components/TopNav';
 
+// Styles.
+import './globals.css';
+
+/****************************************
+ * - Root Layout -
+ ***************************************/
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      {/*
-        <head /> will contain the components returned by the nearest parent
-        head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
-      */}
+    <html lang='en'>
       <head />
-      <body>{children}</body>
+      <body>
+        <PageTransition>
+          <TopNav />
+          <main className='px-10'>{children}</main>
+        </PageTransition>
+      </body>
     </html>
-  )
+  );
 }
