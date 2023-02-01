@@ -18,6 +18,9 @@ const variants: Variants = {
   },
 };
 
+/****************************************
+ * - PageTransition.tsx -
+ ***************************************/
 export default function PageTransition({ children }: { children: ReactNode }) {
   const path = usePathname();
   return (

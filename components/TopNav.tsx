@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { motion, Variants } from 'framer-motion';
 import Link from 'next/link';
 
 const pages = [
@@ -8,6 +9,36 @@ const pages = [
   { text: 'Blog', route: '/blog' },
   { text: 'Snippets', route: '/snippets' },
 ];
+
+const links: Variants = {
+  open: {
+    opacity: 1,
+    y: 0,
+    transition: { type: 'spring', stiffness: 300, damping: 24 },
+  },
+  closed: {
+    opacity: 0,
+    y: 20,
+    transition: { duration: 0.2 },
+  },
+};
+
+const overlay: Variants = {
+  open: {
+    y: 0,
+    transition: {
+      duration: 0.5,
+      delayChildren: 0.6,
+      staggerChildren: 0.1,
+    },
+  },
+  closed: {
+    y: '-100%',
+    transition: {
+      duration: 0.5,
+    },
+  },
+};
 
 /****************************************
  * - TopNav.tsx -
@@ -24,7 +55,8 @@ export default function TopNav() {
             IRWIN
           </Link>
         </div>
-        <button
+        <motion.button
+          whileTap={{ scale: 0.9 }}
           onClick={() => setIsOpen(prev => !prev)}
           className='relative flex flex-col gap-1 min-w-[64px] min-h-[64px] items-center justify-center rounded-full bg-slate-200'>
           <div
@@ -37,14 +69,17 @@ export default function TopNav() {
               isOpen ? 'translate-y-0 rotate-[225deg]' : 'translate-y-[3px]'
             }`}
           />
-        </button>
+        </motion.button>
       </div>
-      <div
-        className={`fixed flex items-center justify-center bg-pink-300 -h-full h-screen w-full transition-all ease-in-out duration-500 ${
-          isOpen ? 'top-0' : '-top-full'
-        }`}>
-        Overlay
-      </div>
+      <motion.div
+        className='fixed top-0 flex flex-col gap-10 text-2xl items-center justify-center bg-pink-300 h-screen w-full'
+        initial={false}
+        animate={isOpen ? 'open' : 'closed'}
+        variants={overlay}>
+        {pages.map(page => (
+          <motion.div variants={links}>{page.text}</motion.div>
+        ))}
+      </motion.div>
     </nav>
   );
 }
