@@ -1,5 +1,4 @@
 // Components.
-import PageTransition from '@/components/PageTransition';
 import TopNav from '@/components/TopNav';
 
 // Styles.
@@ -17,10 +16,8 @@ export default function RootLayout({
     <html lang='en'>
       <head />
       <body>
-        <PageTransition>
-          <TopNav />
-          <main className='px-10'>{children}</main>
-        </PageTransition>
+        <TopNav />
+        <main className='px-10'>{children}</main>
       </body>
     </html>
   );

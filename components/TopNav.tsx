@@ -46,10 +46,15 @@ const overlay: Variants = {
 export default function TopNav() {
   const [isOpen, setIsOpen] = useState(false);
 
+  const menuHandler = () => {
+    document.body.style.overflow = isOpen ? 'unset' : ' hidden';
+    setIsOpen(!isOpen);
+  };
+
   // Render.
   return (
     <nav>
-      <div className='sticky z-10 flex justify-between items-center px-10 py-5'>
+      <div className='sticky z-20 flex justify-between items-center px-10 py-5'>
         <div className='flex gap-10 items-center'>
           <Link href='/' className='text-2xl'>
             IRWIN
@@ -57,7 +62,7 @@ export default function TopNav() {
         </div>
         <motion.button
           whileTap={{ scale: 0.9 }}
-          onClick={() => setIsOpen(prev => !prev)}
+          onClick={menuHandler}
           className='relative flex flex-col gap-1 min-w-[64px] min-h-[64px] items-center justify-center rounded-full bg-slate-200'>
           <div
             className={`absolute bg-black w-[22px] h-[2px] rounded transition-all ease-out duration-500 ${
@@ -72,12 +77,16 @@ export default function TopNav() {
         </motion.button>
       </div>
       <motion.div
-        className='fixed top-0 flex flex-col gap-10 text-2xl items-center justify-center bg-pink-300 h-screen w-full'
+        className='fixed z-10 top-0 flex flex-col gap-10 text-2xl items-center justify-center bg-pink-300 h-screen w-full'
         initial={false}
         animate={isOpen ? 'open' : 'closed'}
         variants={overlay}>
         {pages.map(page => (
-          <motion.div variants={links}>{page.text}</motion.div>
+          <motion.div key={page.text} variants={links}>
+            <Link href={page.route} onClick={menuHandler}>
+              {page.text}
+            </Link>
+          </motion.div>
         ))}
       </motion.div>
     </nav>
