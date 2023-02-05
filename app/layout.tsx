@@ -17,7 +17,7 @@ export default function RootLayout({
       <head />
       <body>
         <TopNav />
-        <main className='px-10'>{children}</main>
+        <main className='px-10 pb-10'>{children}</main>
       </body>
     </html>
   );

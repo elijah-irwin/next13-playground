@@ -6,10 +6,12 @@ import { PostMetaData } from '@/interfaces/Posts';
  ***************************************/
 export default function PostPreview({ post }: { post: PostMetaData }) {
   return (
-    <Link href={`/blog/${post.slug}`}>
-      <h2>{post.title}</h2>
+    <Link
+      href={`/blog/${post.slug}`}
+      className='rounded-md border border-slate-200 p-5 shadow'>
+      <h2 className='text-lg font-semibold'>{post.title}</h2>
       <p>{post.subtitle}</p>
-      <p>{post.date}</p>
+      <p className='text-sm text-slate-500'>{post.date}</p>
     </Link>
   );
 }
