@@ -1,4 +1,5 @@
 // Components.
+import PageTransition from '@/components/PageTransition';
 import TopNav from '@/components/TopNav';
 
 // Styles.

@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <PageTransition>
       <main>
-        <h1 className='text-blue-400 text-2xl mb-5'>Home</h1>
+        <h1 className='mb-5 text-2xl text-blue-400'>Home</h1>
         <div className='flex flex-col gap-5'>
           {postMetaData.map(post => (
             <PostPreview key={post.slug} post={post} />

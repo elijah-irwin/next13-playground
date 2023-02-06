@@ -23,7 +23,7 @@ export default function Blog({ params }: { params: { slug: string } }) {
   return (
     <PageTransition>
       <main>
-        <div className='text-blue-400 text-2xl'>{post.title}</div>
+        <div className='text-2xl text-blue-400'>{post.title}</div>
         <article className='prose prose-slate lg:prose-xl'>
           <Markdown>{post.content}</Markdown>
         </article>
