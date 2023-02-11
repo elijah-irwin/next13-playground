@@ -53,8 +53,6 @@ export default function Home() {
         <div className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
           <div className='h-[200px] w-full rounded-lg  border-slate-300 bg-gradient-to-br from-slate-300 shadow-sm' />
           <div className='h-[200px] w-full rounded-lg  border-slate-300 bg-gradient-to-br from-slate-300 shadow-sm' />
-          <div className='h-[200px] w-full rounded-lg  border-slate-300 bg-gradient-to-br from-slate-300 shadow-sm' />
-          <div className='h-[200px] w-full rounded-lg  border-slate-300 bg-gradient-to-br from-slate-300 shadow-sm' />
         </div>
         <div className='flex items-center gap-2'>
           <Link href='/blog'>Read something else</Link>

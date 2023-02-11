@@ -1,17 +1,17 @@
 import Link from 'next/link';
-import { PostMetaData } from '@/interfaces/Posts';
+import { Post } from 'contentlayer/generated';
 
 /****************************************
  * - PostPreview.tsx -
  ***************************************/
-export default function PostPreview({ post }: { post: PostMetaData }) {
+export default function PostPreview({ slug, title, date, preview }: Post) {
   return (
     <Link
-      href={`/blog/${post.slug}`}
+      href={`/blog/${slug}`}
       className='rounded-md border border-slate-200 p-5 shadow'>
-      <h2 className='text-lg font-semibold'>{post.title}</h2>
-      <p>{post.subtitle}</p>
-      <p className='text-sm text-slate-500'>{post.date}</p>
+      <h2 className='text-lg font-semibold'>{title}</h2>
+      <p>{preview}</p>
+      <p className='text-sm text-slate-500'>{date}</p>
     </Link>
   );
 }

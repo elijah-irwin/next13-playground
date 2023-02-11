@@ -28,7 +28,7 @@ export default function TopNav() {
             </Link>
             {path === page.route && (
               <motion.div
-                layoutId='underline'
+                layoutId='background'
                 className='absolute top-0 left-0 z-10 h-full w-full rounded-full bg-slate-100'
               />
             )}

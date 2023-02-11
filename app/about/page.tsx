@@ -6,9 +6,9 @@ import photo2 from '@/public/dud2.jpg';
 
 const spotify = [
   'https://open.spotify.com/embed/track/4Hff1IjRbLGeLgFgxvHflk?utm_source=generator',
-  'https://open.spotify.com/embed/track/1MOsWaaMx4L7YUYGu7LdEx?utm_source=generator',
-  'https://open.spotify.com/embed/track/5nBqvq3hUl8n6HtKtwNphW?utm_source=generator&theme=0',
-  'https://open.spotify.com/embed/track/4UhxYZIDeO7pTu1wC8K6tH?utm_source=generator',
+  'https://open.spotify.com/embed/track/0qkA0NU7cDKWkFXNGRcNaB?utm_source=generator',
+  'https://open.spotify.com/embed/track/5nBqvq3hUl8n6HtKtwNphW?utm_source=generator',
+  'https://open.spotify.com/embed/track/5hM5arv9KDbCHS0k9uqwjr?utm_source=generator',
 ];
 
 /****************************************
@@ -19,7 +19,7 @@ export default function About() {
   return (
     <div className='flex flex-col gap-10'>
       <section>
-        <div className='grid h-96 grid-cols-5 gap-5'>
+        {/* <div className='grid h-96 grid-cols-5 gap-5'>
           <div className='relative col-span-3'>
             <Image
               src={photo1}
@@ -38,8 +38,8 @@ export default function About() {
               className='rounded-md object-cover'
             />
           </div>
-        </div>
-        <h1 className='my-5 text-5xl'>A little about me</h1>
+        </div> */}
+        <h1 className='mb-5 text-5xl'>A little about me</h1>
         <p className='pb-3'>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nec
           fringilla nisi. Nam sodales ipsum sit amet ex elementum ullamcorper.
@@ -55,25 +55,11 @@ export default function About() {
       </section>
       <section>
         <h2 className='mb-3 text-3xl'>Some interests</h2>
-        <div className='grid h-80 grid-cols-12 gap-3'>
-          <div className='col-span-5 bg-gradient-to-br from-pink-200'>
-            Climbing
-          </div>
-          <div className='col-span-3 bg-gradient-to-br from-pink-200'>
-            Climbing
-          </div>
-          <div className='col-span-4 bg-gradient-to-br from-pink-200'>
-            Climbing
-          </div>
-          <div className='col-span-3 bg-gradient-to-br from-pink-200'>
-            Climbing
-          </div>
-          <div className='col-span-4 bg-gradient-to-br from-pink-200'>
-            Climbing
-          </div>
-          <div className='col-span-5 bg-gradient-to-br from-pink-200'>
-            Climbing
-          </div>
+        <div className='grid h-80 grid-cols-2 gap-3'>
+          <div className='bg-gradient-to-br from-pink-200'>Climbing</div>
+          <div className='bg-gradient-to-br from-pink-200'>Climbing</div>
+          <div className='bg-gradient-to-br from-pink-200'>Climbing</div>
+          <div className='bg-gradient-to-br from-pink-200'>Climbing</div>
         </div>
       </section>
       <section>
@@ -83,7 +69,7 @@ export default function About() {
         </h2>
         <div className='flex flex-col gap-5'>
           {spotify.map(song => (
-            <div>
+            <div key={song}>
               <iframe
                 className='rounded-lg'
                 src={song}
@@ -101,6 +87,12 @@ export default function About() {
           <div>Some cool things</div>
           <div className='text-lg text-slate-400'>(not affiliated!)</div>
         </h2>
+        <div className='grid h-72 grid-cols-2 gap-5'>
+          <div className='bg-slate-300' />
+          <div className='bg-slate-300' />
+          <div className='bg-slate-300' />
+          <div className='bg-slate-300' />
+        </div>
       </section>
     </div>
   );
