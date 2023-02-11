@@ -4,7 +4,6 @@ import matter from 'gray-matter';
 
 import { Post } from '@/interfaces/Posts';
 import { getPostMetaData } from '@/lib/posts';
-import PageTransition from '@/components/PageTransition';
 
 const getPost = (slug: string): Post => {
   const folder = 'content/posts/';
@@ -21,14 +20,12 @@ export default function Blog({ params }: { params: { slug: string } }) {
 
   // Render.
   return (
-    <PageTransition>
-      <main>
-        <div className='text-2xl text-blue-400'>{post.title}</div>
-        <article className='prose prose-slate lg:prose-xl'>
-          <Markdown>{post.content}</Markdown>
-        </article>
-      </main>
-    </PageTransition>
+    <main>
+      <div className='text-2xl text-blue-400'>{post.title}</div>
+      <article className='prose prose-slate lg:prose-xl'>
+        <Markdown>{post.content}</Markdown>
+      </article>
+    </main>
   );
 }
 

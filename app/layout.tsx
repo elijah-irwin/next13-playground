@@ -1,6 +1,6 @@
 // Components.
-import PageTransition from '@/components/PageTransition';
 import TopNav from '@/components/TopNav';
+import Footer from '@/components/Footer';
 
 // Styles.
 import './globals.css';
@@ -16,9 +16,12 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <head />
-      <body>
-        <TopNav />
-        <main className='px-10 pb-10'>{children}</main>
+      <body className='m-8'>
+        <div className='mx-auto w-full sm:w-[550px]'>
+          <TopNav />
+          <main>{children}</main>
+          <Footer />
+        </div>
       </body>
     </html>
   );
