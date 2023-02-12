@@ -4,7 +4,7 @@ import { rehypePrettyOptions } from './lib/rehypePrettyConfig';
 
 export const Post = defineDocumentType(() => ({
   name: 'Post',
-  filePathPattern: `mdxposts/**/*.mdx`,
+  filePathPattern: `posts/**/*.mdx`,
   contentType: 'mdx',
   fields: {
     title: {
