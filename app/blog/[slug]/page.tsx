@@ -18,9 +18,15 @@ export default function Blog({ params }: { params: { slug: string } }) {
   const Content = useMDXComponent(post.body.code);
 
   return (
-    <div>
+    <div className='prose'>
       <h1>{post.title}</h1>
-      <Content />
+      <article>
+        <Content
+        // components={{
+        //   h3: x => <h2 className='text-2xl' {...x}></h2>,
+        // }}
+        />
+      </article>
     </div>
   );
 }

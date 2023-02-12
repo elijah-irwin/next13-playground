@@ -11,7 +11,7 @@ export default function Blog() {
   return (
     <div className='mb-5 flex flex-col gap-5'>
       {allPosts.map(post => (
-        <PostPreview {...post} />
+        <PostPreview key={post._id} {...post} />
       ))}
     </div>
   );

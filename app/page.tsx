@@ -4,7 +4,6 @@ import { HiArrowNarrowRight } from 'react-icons/hi';
 
 // Content.
 import photo from '@/public/dud.jpg';
-import { allPosts } from 'contentlayer/generated';
 
 /****************************************
  * - Home Page -

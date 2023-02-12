@@ -3,7 +3,7 @@ import TopNav from '@/components/TopNav';
 import Footer from '@/components/Footer';
 
 // Styles.
-import './globals.css';
+import '@/styles/globals.css';
 
 /****************************************
  * - Root Layout -
