@@ -1,5 +1,3 @@
-/** @type {import('tailwindcss').Config} */
-
 const disabledCss = {
   'code::before': false,
   'code::after': false,
@@ -12,6 +10,7 @@ const disabledCss = {
   'code::after': false,
 };
 
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     './app/**/*.{js,ts,jsx,tsx}',
@@ -25,6 +24,21 @@ module.exports = {
     extend: {
       typography: {
         DEFAULT: { css: disabledCss },
+      },
+      colors: {
+        accent: '#777FCA',
+        main: '#1B1B1B',
+        'text-main': '#E9E9E9',
+        'text-sub': '#999999',
+        card: '#272727',
+        outline: '#373737',
+      },
+      boxShadow: {
+        card: '0px 0px 10px 0px rgba(100, 100, 100, 0.25)',
+      },
+      fontFamily: {
+        serif: 'var(--serif-font)',
+        sans: 'var(--sans-font)',
       },
     },
   },

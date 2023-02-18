@@ -18,7 +18,7 @@ export default function Blog({ params }: { params: { slug: string } }) {
   const Content = useMDXComponent(post.body.code);
 
   return (
-    <div className='prose'>
+    <div className='prose prose-invert'>
       <h1>{post.title}</h1>
       <article>
         <Content

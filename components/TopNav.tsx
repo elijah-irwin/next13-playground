@@ -7,7 +7,6 @@ import { usePathname } from 'next/navigation';
 const pages = [
   { text: 'Home', route: '/' },
   { text: 'About', route: '/about' },
-  { text: 'Work', route: '/work' },
   { text: 'Blog', route: '/blog' },
 ];
 
@@ -19,22 +18,26 @@ export default function TopNav() {
 
   // Render.
   return (
-    <nav className='sticky top-10 z-50 m-auto mb-20 w-[400px] rounded-full border-2 border-slate-200 bg-white p-1 shadow-sm'>
-      <ul className='flex justify-between'>
+    <motion.nav
+      initial={{ opacity: 0, y: -100 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.5 }}
+      className='sticky top-10 z-50 mx-auto mb-14 w-min rounded-full border border-outline bg-card p-2 shadow-card'>
+      <ul className='flex gap-5'>
         {pages.map(page => (
           <li key={page.text} className='relative'>
-            <Link href={page.route} className='relative z-20 block  py-3 px-5'>
+            <Link href={page.route} className='relative z-20 block py-4 px-6'>
               {page.text}
             </Link>
             {path === page.route && (
               <motion.div
                 layoutId='background'
-                className='absolute top-0 left-0 z-10 h-full w-full rounded-full bg-slate-100'
+                className='absolute top-0 left-0 z-10 h-full w-full rounded-full bg-accent'
               />
             )}
           </li>
         ))}
       </ul>
-    </nav>
+    </motion.nav>
   );
 }

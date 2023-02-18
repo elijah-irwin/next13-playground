@@ -1,27 +1,31 @@
 import Image from 'next/image';
-import Link from 'next/link';
-import { HiArrowNarrowRight } from 'react-icons/hi';
+import PostPreview from '@/components/PostPreview';
 
 // Content.
+import { allPosts } from '@/.contentlayer/generated';
 import photo from '@/public/dud.jpg';
 
 /****************************************
  * - Home Page -
  ***************************************/
 export default function Home() {
+  const posts = allPosts
+    .sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)))
+    .slice(0, 2);
+
   // Render.
   return (
     <div className='flex flex-col gap-10'>
       <section>
         <div className='mb-8 flex items-center justify-between'>
           <div>
-            <h1 className='mb-3 text-5xl'>Elijah Irwin</h1>
-            <h3 className='text-xl text-slate-400 sm:flex sm:gap-1'>
+            <h1 className='mb-3 font-serif text-5xl'>Elijah Irwin</h1>
+            <h3 className='text-xl text-text-sub sm:flex sm:gap-1'>
               <div>Senior Software Engineer</div>
               <div>@ TD Securities</div>
             </h3>
           </div>
-          <div className='relative min-h-[95px] min-w-[95px] rounded-full border-4 border-red-300'>
+          <div className='relative min-h-[85px] min-w-[85px] rounded-full border-[5px] border-accent'>
             <Image
               src={photo}
               fill={true}
@@ -48,15 +52,12 @@ export default function Home() {
       </section>
 
       <section className='flex flex-col gap-4'>
-        <h2 className='text-3xl'>Recent posts</h2>
-        <div className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
-          <div className='h-[200px] w-full rounded-lg  border-slate-300 bg-gradient-to-br from-slate-300 shadow-sm' />
-          <div className='h-[200px] w-full rounded-lg  border-slate-300 bg-gradient-to-br from-slate-300 shadow-sm' />
-        </div>
-        <div className='flex items-center gap-2'>
-          <Link href='/blog'>Read something else</Link>
-          <HiArrowNarrowRight size={20} />
-        </div>
+        {posts.map(post => (
+          <PostPreview key={post._id} {...post} />
+        ))}
+        <button className='ml-1 text-text-sub mt-1 text-left'>
+          Read something else -->
+        </button>
       </section>
     </div>
   );
