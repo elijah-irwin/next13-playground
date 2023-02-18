@@ -33,8 +33,8 @@ export default function RootLayout({
       lang='en'
       className={`${sans.variable} ${serif.variable} antialiased`}>
       <head />
-      <body className='m-10 bg-main text-text-main'>
-        <div className='mx-auto w-full sm:w-[550px]'>
+      <body className='bg-main text-text-main'>
+        <div className='mx-auto w-full p-7 sm:w-[550px]'>
           <TopNav />
           <main>{children}</main>
           <Footer />

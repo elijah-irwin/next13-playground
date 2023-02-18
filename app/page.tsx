@@ -17,12 +17,12 @@ export default function Home() {
   return (
     <div className='flex flex-col gap-10'>
       <section>
-        <div className='mb-8 flex items-center justify-between'>
+        <div className='mb-5 sm:mb-10 flex items-center gap-5 justify-between'>
           <div>
-            <h1 className='mb-3 font-serif text-5xl'>Elijah Irwin</h1>
-            <h3 className='text-xl text-text-sub sm:flex sm:gap-1'>
+            <h1 className='mb-3 font-serif text-4xl sm:text-5xl'>Elijah Irwin</h1>
+            <h3 className='text-lg sm:text-xl text-text-sub'>
               <div>Senior Software Engineer</div>
-              <div>@ TD Securities</div>
+              <div>at TD Securities</div>
             </h3>
           </div>
           <div className='relative min-h-[85px] min-w-[85px] rounded-full border-[5px] border-accent'>
@@ -45,13 +45,20 @@ export default function Home() {
         <p>
           Nunc eleifend odio vel bibendum rutrum. Lorem ipsum dolor sit amet,
           consectetur adipiscing elit. Quisque ut libero id sapien sodales
-          pulvinar. Vivamus ac efficitur nunc. Fusce nisi lacus, pulvinar non
-          elit at, mollis molestie est. Etiam volutpat in dui quis iaculis.
-          Donec pretium odio a aliquet volutpat
+          pulvinar. Vivamus ac efficitur nunc.
         </p>
       </section>
 
       <section className='flex flex-col gap-4'>
+        {posts.map(post => (
+          <PostPreview key={post._id} {...post} />
+        ))}
+        {posts.map(post => (
+          <PostPreview key={post._id} {...post} />
+        ))}
+        {posts.map(post => (
+          <PostPreview key={post._id} {...post} />
+        ))}
         {posts.map(post => (
           <PostPreview key={post._id} {...post} />
         ))}

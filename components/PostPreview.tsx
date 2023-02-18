@@ -13,7 +13,7 @@ export default function PostPreview({ slug, title, date, preview }: Post) {
       <div className='mb-2 text-sm text-accent'>
         {dayjs(date).format('MMM. D, YYYY')}
       </div>
-      <h2 className='mb-2 text-2xl font-medium'>{title}</h2>
+      <h2 className='mb-2 font-serif text-2xl font-medium'>{title}</h2>
       <p className='text-text-sub'>{preview}</p>
     </Link>
   );

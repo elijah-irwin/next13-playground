@@ -1,6 +1,5 @@
 'use client';
-import { useState } from 'react';
-import { motion, Variants } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -22,8 +21,8 @@ export default function TopNav() {
       initial={{ opacity: 0, y: -100 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.5 }}
-      className='sticky top-10 z-50 mx-auto mb-14 w-min rounded-full border border-outline bg-card p-2 shadow-card'>
-      <ul className='flex gap-5'>
+      className='sticky top-8 z-50 mx-auto mb-14 w-min rounded-full border border-outline bg-card p-2 shadow-card'>
+      <ul className='flex sm:gap-5'>
         {pages.map(page => (
           <li key={page.text} className='relative'>
             <Link href={page.route} className='relative z-20 block py-4 px-6'>
