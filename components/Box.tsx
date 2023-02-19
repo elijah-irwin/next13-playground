@@ -23,7 +23,7 @@ function Item(props: ThreeElements['mesh']) {
       onPointerOver={event => hover(true)}
       onPointerOut={event => hover(false)}>
       <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color={hovered ? '#777FCA' : 'orange'} />
+      <meshStandardMaterial color={!hovered ? '#777FCA' : 'orange'} />
     </mesh>
   );
 }
