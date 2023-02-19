@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import PostPreview from '@/components/PostPreview';
 import Link from 'next/link';
+import { FiArrowRight } from 'react-icons/fi';
 
 // Content.
 import { allPosts } from '@/.contentlayer/generated';
@@ -41,9 +42,9 @@ export default function Home() {
         </div>
         <p className='mb-3'>
           Hey, I'm Eli! Welcome to my little corner of the web. I'm a{' '}
-          <span className='text-accent'>developer</span> and (on occasion){' '}
-          <span className='text-accent'>designer</span> from Ontario, Canada
-          with a passion for simplifying development workflows.
+          <span className='text-accent'>fullstack</span> developer from Ontario
+          with a passion for <span className='text-accent'>simplifying</span>{' '}
+          development workflows.
         </p>
         <p>
           I'm currently working on a modern{' '}
@@ -61,8 +62,8 @@ export default function Home() {
         ))}
         <Link
           href='/blog'
-          className='ml-1 mt-1 text-left text-text-sub transition-colors hover:text-accent'>
-          Read something else
+          className='ml-1 mt-1 flex items-center gap-1 text-left text-text-sub transition-colors hover:text-accent'>
+          Read something else <FiArrowRight className='h-5 w-5' />
         </Link>
       </section>
     </div>
