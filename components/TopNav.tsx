@@ -1,5 +1,6 @@
 'use client';
 import { motion } from 'framer-motion';
+import clsx from 'clsx';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -21,19 +22,20 @@ export default function TopNav() {
       initial={{ opacity: 0, y: -100 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.5 }}
-      className='sticky top-8 z-50 mx-auto mb-14 w-min rounded-full border border-outline bg-card p-2 shadow-card'>
+      className='sticky top-10 z-50 mx-auto mb-24 w-min rounded-full border border-outline bg-card p-2 shadow-card'>
       <ul className='flex sm:gap-5'>
         {pages.map(page => (
           <li key={page.text} className='relative'>
-            <Link href={page.route} className='relative z-20 block py-4 px-6'>
+            <Link
+              href={page.route}
+              className={clsx(
+                'relative z-20 block rounded-full py-3 px-6 transition-colors',
+                path === page.route
+                  ? 'bg-accent hover:bg-accent'
+                  : 'hover:bg-[#333333]'
+              )}>
               {page.text}
             </Link>
-            {path === page.route && (
-              <motion.div
-                layoutId='background'
-                className='absolute top-0 left-0 z-10 h-full w-full rounded-full bg-accent'
-              />
-            )}
           </li>
         ))}
       </ul>

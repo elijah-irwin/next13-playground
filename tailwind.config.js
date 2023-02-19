@@ -26,10 +26,11 @@ module.exports = {
         DEFAULT: { css: disabledCss },
       },
       colors: {
+        main: '#1f1f1f',
+        'main-light': '#232323',
         accent: '#777FCA',
-        main: '#1B1B1B',
-        'text-main': '#E9E9E9',
-        'text-sub': '#999999',
+        'text-main': '#d9d9d9',
+        'text-sub': '#888888',
         card: '#272727',
         outline: '#373737',
       },
@@ -39,6 +40,7 @@ module.exports = {
       fontFamily: {
         serif: 'var(--serif-font)',
         sans: 'var(--sans-font)',
+        accent: 'var(--accent-font)',
       },
     },
   },
