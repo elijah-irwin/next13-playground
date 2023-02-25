@@ -1,5 +1,6 @@
 import { allPosts } from 'contentlayer/generated';
 import { useMDXComponent } from 'next-contentlayer/hooks';
+import { components } from '@/components/MDX';
 
 /****************************************
  * - Blog Page -
@@ -18,14 +19,10 @@ export default function Blog({ params }: { params: { slug: string } }) {
   const Content = useMDXComponent(post.body.code);
 
   return (
-    <div className='prose prose-invert'>
+    <div className='prose prose-invert prose-pink'>
       <h1>{post.title}</h1>
       <article>
-        <Content
-        // components={{
-        //   h3: x => <h2 className='text-2xl' {...x}></h2>,
-        // }}
-        />
+        <Content components={components} />
       </article>
     </div>
   );

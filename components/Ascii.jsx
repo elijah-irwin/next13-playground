@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useRef, useState, useMemo, useLayoutEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { OrbitControls, useCursor } from '@react-three/drei';
+// import { OrbitControls, useCursor } from '@react-three/drei';
 import { AsciiEffect } from 'three-stdlib';
 
 export default function Ascii() {
@@ -11,7 +11,7 @@ export default function Ascii() {
       <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
       <pointLight position={[-10, -10, -10]} />
       <Thing />
-      <OrbitControls />
+      {/* <OrbitControls /> */}
       <AsciiRenderer fgColor='#d9d9d9' bgColor='transparent' />
     </Canvas>
   );
@@ -20,8 +20,8 @@ export default function Ascii() {
 function Thing(props) {
   const ref = useRef();
   const [clicked, click] = useState(false);
-  const [hovered, hover] = useState(false);
-  useCursor(hovered);
+  // const [hovered, hover] = useState(false);
+  // useCursor(hovered);
   useFrame(
     (state, delta) =>
       (ref.current.rotation.x = ref.current.rotation.y += delta / 2)
@@ -31,11 +31,9 @@ function Thing(props) {
       {...props}
       ref={ref}
       scale={clicked ? 1.5 : 1.25}
-      onClick={() => click(!clicked)}
-      onPointerOver={() => hover(true)}
-      onPointerOut={() => hover(false)}>
-      {/* <torusGeometry args={[1, 0.5, 128, 32]} /> */}
-      <boxGeometry args={[1, 1, 1]} />
+      onClick={() => click(!clicked)}>
+      <torusGeometry args={[1, 0.5, 100, 1000]} />
+      {/* <boxGeometry args={[1, 1, 1]} /> */}
       <meshStandardMaterial color='orange' />
     </mesh>
   );
@@ -48,7 +46,7 @@ function AsciiRenderer({
   characters = ' .:-+*=%@#',
   invert = true,
   color = false,
-  resolution = 0.17,
+  resolution = 0.2,
 }) {
   // Reactive state
   const { size, gl, scene, camera } = useThree();

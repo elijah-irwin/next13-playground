@@ -19,7 +19,7 @@ export default function Home() {
   return (
     <div className='flex flex-col gap-10'>
       <section>
-        <div className='mb-6 flex items-center justify-between gap-6'>
+        <div className='mb-8 flex items-center justify-between gap-6'>
           <div>
             <h1 className='mb-3 font-serif text-4xl font-medium sm:text-5xl'>
               Elijah Irwin

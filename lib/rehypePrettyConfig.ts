@@ -2,7 +2,9 @@ import { Options } from 'rehype-pretty-code';
 
 export const rehypePrettyOptions: Partial<Options> = {
   // Use one of Shiki's packaged themes.
-  theme: 'one-dark-pro',
+  // theme: 'vitesse-dark',
+  // theme: 'rose-pine',
+  theme: 'css-variables',
 
   // Or your own JSON theme
   // theme: JSON.parse(

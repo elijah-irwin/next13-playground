@@ -16,22 +16,28 @@ module.exports = {
     './app/**/*.{js,ts,jsx,tsx}',
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
-
-    // Or if using `src` directory:
-    './src/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {
-      typography: {
+      typography: ({ theme }) => ({
         DEFAULT: { css: disabledCss },
-      },
+        pink: {
+          css: {
+            '--tw-prose-invert-body': theme('colors.text-main'),
+            '--tw-prose-invert-headings': theme('colors.text-main'),
+            '--tw-prose-links': theme('colors.accent'),
+            '--tw-prose-invert-bold': theme('colors.white'),
+            '--tw-prose-invert-bullets': theme('colors.accent'),
+          },
+        },
+      }),
       colors: {
-        main: '#1f1f1f',
-        'main-light': '#232323',
-        accent: '#777FCA',
+        main: '#232529',
+        'main-light': '#232529',
+        accent: '#6e6cd7',
         'text-main': '#d9d9d9',
         'text-sub': '#888888',
-        card: '#272727',
+        card: '#282a2f',
         outline: '#373737',
       },
       boxShadow: {

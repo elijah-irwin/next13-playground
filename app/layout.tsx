@@ -32,7 +32,7 @@ export default function RootLayout({
       lang='en'
       className={`${sans.variable} ${serif.variable} antialiased`}>
       <head />
-      <body className='min-h-screen bg-gradient-to-b from-main to-main-light text-text-main'>
+      <body className='min-h-screen bg-main text-text-main'>
         <div className='mx-auto w-full px-7 sm:w-[625px]'>
           <TopNav />
           <main>{children}</main>
