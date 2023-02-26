@@ -21,16 +21,22 @@ export default function About() {
           This year, two things have really captured my attention:{' '}
           <span className='text-accent'>Three.js</span> and{' '}
           <span className='text-accent'>artificial intelligence</span>.
-          Hopefully you'll see some blog posts from me exploring them. 👀
+          Hopefully you'll see some blog posts from me exploring them!
         </p>
+        <div className='flex h-40 items-center justify-center'>
+          <Box />
+        </div>
         <p>
           When I'm not at work, you'll often find me hanging with my dogs,
           climbing, practicing piano (a new hobby), and in the winter, hitting
-          the slopes for some snowboarding! 🏂
+          the slopes for some snowboarding!
         </p>
       </section>
-      <section className='flex h-52 items-center justify-center'>
-        <Box />
+      <section>
+        <h2>Current Stack</h2>
+      </section>
+      <section>
+        <h2>Experience With</h2>
       </section>
     </div>
   );

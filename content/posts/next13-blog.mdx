@@ -1,0 +1,158 @@
+---
+title: Build an MDX blog with NextJs 13 in 15 minutes.
+preview: Learn how to quickly build the foundation of a custom blog using NextJs 13, MDX, TailwindCSS, and ContentLayer.
+date: 2023-02-28
+---
+
+## Overview
+
+This post will demonstrate how to build the foundation for a custom blog with **NextJs 13.2**, **MDX**, **TailwindCSS**, and **Contentlayer**. By the end of this short tutorial you will have a functionally ready blog which you can deploy, extend, and style to your liking. 👏
+
+**LINK TO CODE HERE**
+
+## Project Setup
+
+Since the primary focus of this project is about building a blog, I won't include the specific steps for setting up a new Next project with Tailwind. Instead, you can save some time by cloning the [starter branch](https://github.com/elijah-irwin/next-13-blog-starter/tree/starter).
+
+```bash
+git clone https://github.com/elijah-irwin/next-13-blog-starter.git
+```
+
+If you're interested in setting up a project yourself, here is the getting started documentation for [Next](https://beta.nextjs.org/docs/installation#automatic-installation) and [Tailwind](https://tailwindcss.com/docs/guides/nextjs).
+
+## Contentlayer
+
+[Contentlayer](https://www.contentlayer.dev/) is a content management tool which will transform our MDX files into type-safe (🥳) data which can be easily imported and rendered throughout our project.
+
+### Configuration
+
+First, install the dependencies.
+
+```bash
+npm install contentlayer next-contentlayer
+```
+
+We'll then need to update our `next.config.js` file with the following.
+
+```js title="next.config.js" {1, 10} showLineNumbers
+const { withContentlayer } = require('next-contentlayer');
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  experimental: {
+    appDir: true,
+  },
+};
+
+module.exports = withContentlayer(nextConfig);
+```
+
+Next, we need to tell Contentlayer where to look for our data. Create a new file in the **root** of your project called `contentlayer.config.js` and populate it with the following:
+
+```js title="contentlayer.config.js" showLineNumbers
+import { makeSource } from 'contentlayer/source-files';
+
+export default makeSource({
+  contentDirPath: 'content',
+  documentTypes: [],
+});
+```
+
+Here we are telling Contentlayer to look only in the `content` directory of our project. (Which we haven't created yet, so make sure to do that now!)
+
+Lastly we'll need to update our `tsconfig.json` so that it's aware of Contentlayer's generated types and we can get that sweet, sweet, intellisense. 😎
+
+```js title="tsconfig.json" {6, 14}
+{
+  "compilerOptions": {
+    // ...
+    "paths": {
+      "@/*": ["./*"],
+      "contentlayer/generated": ["./.contentlayer/generated"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".contentlayer/generated"
+  ],
+  // ...
+}
+```
+
+With the boring configuration stuff out of the way, we're finally ready to move onto defining the structure of our blog posts. 🎉
+
+### Creating Our Blog Post Schema
+
+A schema definition in Contentlayer is where we define the types for our content's front-matter and specify/configure computed fields such as slugs.
+
+Lets create a new folder in our `content` directory called `schemas`. In that folder lets create a new file called `Post.ts` and fill it with the following:
+
+```js title="Post.ts"
+import { defineDocumentType } from 'contentlayer/source-files';
+
+export const Post = defineDocumentType(() => ({
+  name: 'Post',
+  filePathPattern: `posts/**/*.mdx`,
+  contentType: 'mdx',
+  fields: {
+    title: {
+      type: 'string',
+      required: true,
+    },
+    date: {
+      type: 'date',
+      required: true,
+    },
+  },
+  computedFields: {
+    slug: {
+      type: 'string',
+      resolve: post => post._raw.sourceFileName.replace('.mdx', ''),
+    },
+  },
+}));
+```
+
+The properties are thankfully pretty verbose but for a bit more context:
+
+- `name`: The unique name of the document type. Used when importing the documents into a component (which we'll do later).
+- `filePathPattern`: Where Contentlayer should look for this specific document type. Remember we specified `content` as our main data directory, so in this case it will look for all `.mdx` files that live in the `content/posts` folder.
+- `contentType`: The type of content, in our case 'mdx', but 'markdown' is also an option.
+- `fields`: The properties which will be coming from our mdx files front-matter. In our case we're expecting every document to have a `title` and `date`.
+- `computedFields`: Dynamically generated properties, useful for things you may not want to manually include in your document's front-matter.
+
+If you would like some more in depth information about schema creation make sure to check out the [docs](https://www.contentlayer.dev/docs/reference/source-files).
+
+Now that we've created our Post schema, we just have to let Contentlayer know about it. We can do so by updating the `contentlayer.config.js` file we created earlier.
+
+```js title="contentlayer.config.js" {2, 6} showLineNumbers
+import { makeSource } from 'contentlayer/source-files';
+import { Post } from './content/schemas/Post';
+
+export default makeSource({
+  contentDirPath: 'content',
+  documentTypes: [Post],
+});
+```
+
+And with that, it's blogging time. 🚀
+
+### Create Some Blog Posts
+
+For now lets create a placeholder post in `content/posts` directory (but feel free to fill yours with some more exciting content).
+
+```mdx title="hello.mdx"
+---
+title: Lorem Ipsum
+date: 2023-02-20
+---
+
+# Hello World
+```
+
+## Display Your Posts
+
+Congratulations on making it to this point! 🥳 We've finally passed all the boring setup and can now enjoy the simplicity that comes with actually using our content.

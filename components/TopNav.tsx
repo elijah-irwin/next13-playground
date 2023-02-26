@@ -22,7 +22,7 @@ export default function TopNav() {
       initial={{ opacity: 0, y: -100 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.5 }}
-      className='sticky top-10 z-50 mx-auto mb-20 w-min rounded-full border border-outline bg-card p-2 shadow-card sm:mb-24'>
+      className='sticky top-10 z-50 mx-auto mb-20 w-min rounded-full border border-accent bg-card p-2 shadow-card sm:mb-24'>
       <ul className='flex sm:gap-5'>
         {pages.map(page => (
           <li key={page.text} className='relative'>
