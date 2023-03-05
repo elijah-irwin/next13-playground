@@ -1,14 +1,27 @@
 ---
-title: Build an MDX blog with NextJs 13 in 15 minutes.
-preview: Learn how to quickly build the foundation of a custom blog using NextJs 13, MDX, TailwindCSS, and ContentLayer.
+title: Build a blog with NextJs 13 in 10 minutes.
+preview: Learn how to quickly build the foundation of a custom blog using NextJs 13, MDX, TailwindCSS, and Contentlayer.
 date: 2023-02-28
 ---
 
 ## Overview
 
-This post will demonstrate how to build the foundation for a custom blog with **NextJs 13.2**, **MDX**, **TailwindCSS**, and **Contentlayer**. By the end of this short tutorial you will have a functionally ready blog which you can deploy, extend, and style to your liking. 👏
+This post will demonstrate how to quickly build a foundation for a custom blog with **NextJs 13.2**, **MDX**, **TailwindCSS**, and **Contentlayer**. By the end you will have a functionally ready blog which you can deploy, extend, and style to your liking. 👏
 
-**LINK TO CODE HERE**
+> This project assumes some familiarity with React development.
+
+<CodeBtns
+  items={[
+    {
+      text: 'Starter Code',
+      link: 'https://github.com/elijah-irwin/next-13-blog-starter/tree/starter',
+    },
+    {
+      text: 'Final Code',
+      link: 'https://github.com/elijah-irwin/next-13-blog-starter/tree/main',
+    },
+  ]}
+/>
 
 ## Project Setup
 
@@ -31,6 +44,8 @@ First, install the dependencies.
 ```bash
 npm install contentlayer next-contentlayer
 ```
+
+> As of Next 13.2 there is a legacy peer dependecy conflict when trying to install Contentlayer. A fix is scheduled for Contentlayer@0.3.1, but for now just use the `--legacy-peer-deps` flag when installing if you experience the error.
 
 We'll then need to update our `next.config.js` file with the following.
 
@@ -90,7 +105,7 @@ A schema definition in Contentlayer is where we define the types for our content
 
 Lets create a new folder in our `content` directory called `schemas`. In that folder lets create a new file called `Post.ts` and fill it with the following:
 
-```js title="Post.ts"
+```js title="content/schemas/Post.ts"
 import { defineDocumentType } from 'contentlayer/source-files';
 
 export const Post = defineDocumentType(() => ({
@@ -121,10 +136,12 @@ The properties are thankfully pretty verbose but for a bit more context:
 - `name`: The unique name of the document type. Used when importing the documents into a component (which we'll do later).
 - `filePathPattern`: Where Contentlayer should look for this specific document type. Remember we specified `content` as our main data directory, so in this case it will look for all `.mdx` files that live in the `content/posts` folder.
 - `contentType`: The type of content, in our case 'mdx', but 'markdown' is also an option.
-- `fields`: The properties which will be coming from our mdx files front-matter. In our case we're expecting every document to have a `title` and `date`.
+- `fields`: The properties which will be coming from our mdx file's front-matter. In our case we're expecting every document to have a `title` and `date`.
 - `computedFields`: Dynamically generated properties, useful for things you may not want to manually include in your document's front-matter.
 
 If you would like some more in depth information about schema creation make sure to check out the [docs](https://www.contentlayer.dev/docs/reference/source-files).
+
+### Connecting Our Blog Post Schema
 
 Now that we've created our Post schema, we just have to let Contentlayer know about it. We can do so by updating the `contentlayer.config.js` file we created earlier.
 
@@ -142,17 +159,139 @@ And with that, it's blogging time. 🚀
 
 ### Create Some Blog Posts
 
-For now lets create a placeholder post in `content/posts` directory (but feel free to fill yours with some more exciting content).
+For now lets create a placeholder post in the `content/posts` directory (but feel free to fill yours with some more exciting content).
 
-```mdx title="hello.mdx"
+```mdx title="content/posts/first-post.mdx"
 ---
-title: Lorem Ipsum
+title: This is my first post!
 date: 2023-02-20
 ---
 
 # Hello World
 ```
 
-## Display Your Posts
+> You may need to restart your Next dev server after creating your first mdx files so Contentlayer can prepare the documents.
 
-Congratulations on making it to this point! 🥳 We've finally passed all the boring setup and can now enjoy the simplicity that comes with actually using our content.
+## Displaying Posts
+
+Congrats on making it to this point! 🥳 We've finally made it past the setup process and can now move ahead with visually presenting our content.
+
+Let's head into the `app` directory and update `page.tsx` with the following:
+
+```js title="app/page.tsx" showLineNumbers
+import Link from 'next/link';
+import { allPosts } from 'contentlayer/generated';
+
+export default function Home() {
+  return (
+    <main className='mx-auto my-10 flex w-[550px] flex-col gap-3'>
+      {allPosts.map(post => (
+        <Link
+          href={post.slug}
+          key={post._id}
+          className='flex flex-col gap-1 rounded-md border border-slate-300 bg-white p-5 shadow-sm transition-all hover:scale-[101%] hover:border-purple-500'>
+          <h2 className='text-2xl font-medium'>{post.title}</h2>
+          <div className='text-slate-400'>{post.date.split('T')[0]}</div>
+        </Link>
+      ))}
+    </main>
+  );
+}
+```
+
+Simple right? Thanks to our post schema, Contentlayer generates and exports our data as an importable module. We also get full type definitions and intellisense as well!
+
+Notice we are using Next's `Link` component with the href referring to our post's dynamic slug we defined in the schema earlier. If you click these now you'll of course be greeted with a 404, so let's solve that by building out a view for reading a post.
+
+## Displaying A Specific Post
+
+To display our posts were going to be leveraging Next's dynamic routes. Additionally, since our post content is static, we can utilize static route generation to preload our page content for faster load times!
+
+### Creating A Dynamic Route
+
+Within our `app` directory, let's create a new folder named `[slug]` (include the brackets!) and inside it create a file called `page.tsx`. You can learn more about dynamic routes in Next 13 [here](https://beta.nextjs.org/docs/routing/defining-routes#dynamic-segments) if needed. This page will contain the logic for displaying our individual posts.
+
+```js title="app/[slug]/page.tsx" showLineNumbers
+import { allPosts } from 'contentlayer/generated';
+import { useMDXComponent } from 'next-contentlayer/hooks';
+
+interface Props {
+  params: { slug: string };
+}
+
+export default function Blog({ params }: Props) {
+  const post = allPosts.find(post => post.slug === params.slug);
+
+  if (post === undefined) return <h1>Post not found! 🥲</h1>;
+
+  const Content = useMDXComponent(post.body.code);
+  return (
+    <main className='mx-auto my-20 w-[550px]'>
+      <h1>{post.title}</h1>
+      <article className='prose'>
+        <Content />
+      </article>
+    </main>
+  );
+}
+```
+
+It's not much code but let's break it down so it's clear.
+
+1. `line 9`: We're first finding the specific post to render by using the dynamic slug provided to our component by Next.
+2. `line 11`: In the case where is no matching post (ex. dead link) we make sure to have a fallback render to let the user know.
+3. `line 13`: If a post was found, we prepare the MDX content as a component by utilizing the `useMDXComponent` hook provided by Contentlayer.
+4. `line 14 onwards`: We simply render the content however we'd like!
+
+> For the `prose` utility class on `line 17` to work, make sure you have the `@tailwindcss/typography` package installed and included in your tailwind plugins.
+
+### Statically Generated Pages
+
+Since our post content is static, we can very easily configure our dynamic route to preload all of our post pages at build time by using the [generateStaticParams](https://beta.nextjs.org/docs/data-fetching/generating-static-params) function from Next, resulting in faster load times.
+
+```js title="app/[slug]/page.tsx" {1,2,3}
+export async function generateStaticParams() {
+  return allPosts.map(post => ({ slug: post.slug }));
+}
+
+export default function Blog({ params }: Props) {
+  // ...
+}
+```
+
+### Dynamic SEO Metadata
+
+What good is a blog without SEO? In Next 13.2, we can leverage the new [generateMetadata](https://beta.nextjs.org/docs/guides/seo) function in combination with our post content for easy, dynamic metadata.
+
+```js title="app/[slug]/page.tsx" {5-9}
+export async function generateStaticParams() {
+  // ...
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const post = allPosts.find(post => post.slug === params.slug);
+  // Add whatever SEO content you want.
+  return { title: post?.title };
+}
+
+export default function Blog({ params }: Props) {
+  // ...
+}
+```
+
+## Review
+
+And that's it! At this point we have have a fully functional, read to be scaled blog built with **Next 13**, **Contentlayer** and **Tailwind** that has support for static page generation and dynamic SEO metadata. 👏 Now it's up to you to style it to your aesthetic and share it with whoever you would like!
+
+![final blog showcase](/blog-final.gif)
+
+If you made it this far, thanks for checking out my first ever blog post! -Elijah
+
+<CodeBtns
+  items={[
+    {
+      text: 'Final Code',
+      link: 'https://github.com/elijah-irwin/next-13-blog-starter/tree/main',
+    },
+  ]}
+/>

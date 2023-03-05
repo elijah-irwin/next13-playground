@@ -21,7 +21,7 @@ module.exports = {
     extend: {
       typography: ({ theme }) => ({
         DEFAULT: { css: disabledCss },
-        pink: {
+        custom: {
           css: {
             '--tw-prose-invert-body': theme('colors.text-main'),
             '--tw-prose-invert-headings': theme('colors.text-main'),

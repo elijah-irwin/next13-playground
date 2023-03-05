@@ -2,7 +2,6 @@ import Link from 'next/link';
 import { Post } from 'contentlayer/generated';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
-
 dayjs.extend(utc);
 
 /****************************************

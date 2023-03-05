@@ -32,7 +32,7 @@ export default function TopNav() {
                 'relative z-20 block rounded-full py-3 px-6 transition-colors',
                 path === page.route
                   ? 'bg-accent hover:bg-accent'
-                  : 'hover:bg-[#333333]'
+                  : 'hover:bg-main-light'
               )}>
               {page.text}
             </Link>

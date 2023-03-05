@@ -1,4 +1,5 @@
 import { defineDocumentType, makeSource } from 'contentlayer/source-files';
+import readingTime from 'reading-time';
 import rehypePrettyCode from 'rehype-pretty-code';
 import { rehypePrettyOptions } from './lib/rehypePrettyConfig';
 
@@ -24,6 +25,10 @@ export const Post = defineDocumentType(() => ({
     slug: {
       type: 'string',
       resolve: post => post._raw.sourceFileName.replace('.mdx', ''),
+    },
+    readingTime: {
+      type: 'number',
+      resolve: post => Math.ceil(readingTime(post.body.raw).minutes),
     },
   },
 }));

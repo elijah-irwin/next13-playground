@@ -1,3 +1,4 @@
 // @ts-nocheck
+import CodeBtns from './CodeBtns';
 
-export const components = {};
+export const components = { CodeBtns };

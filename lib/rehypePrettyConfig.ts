@@ -4,6 +4,7 @@ export const rehypePrettyOptions: Partial<Options> = {
   // Use one of Shiki's packaged themes.
   // theme: 'vitesse-dark',
   // theme: 'rose-pine',
+  // theme: 'nord',
   theme: 'css-variables',
 
   // Or your own JSON theme
